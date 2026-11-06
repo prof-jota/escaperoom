@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jumanji - Portal de Entrada</title>
-  <!-- Fontes Estilo Jumanji / Aventura -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;900&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ==========================================================================
-       1. ESTILOS GERAIS E VARIÁVEIS
-       ========================================================================== */
     :root {
       --gold: #dfb250;
       --gold-bright: #ffd700;
@@ -42,7 +38,6 @@
       position: relative;
     }
 
-    /* Fundo dinâmico da selva */
     .jungle-bg {
       position: fixed;
       top: 0;
@@ -56,9 +51,7 @@
       z-index: 1;
     }
 
-    /* ==========================================================================
-       2. TELA 1: FORMULÁRIO DE JOGADORES (ENTRADA)
-       ========================================================================== */
+    /* TELA 1: FORMULÁRIO */
     .setup-container {
       position: relative;
       z-index: 10;
@@ -76,10 +69,7 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    .title-banner {
-      margin-bottom: 2rem;
-    }
-
+    .title-banner { margin-bottom: 2rem; }
     .title-sub {
       font-family: 'Cinzel', serif;
       color: var(--gold);
@@ -88,14 +78,11 @@
       text-transform: uppercase;
       margin-bottom: 0.25rem;
     }
-
     .title-main {
       font-family: 'Cinzel Decorative', serif;
       font-size: 2.8rem;
       color: var(--gold-bright);
-      text-shadow: 
-        0 0 12px rgba(255, 215, 0, 0.6),
-        3px 3px 0px #000;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.6), 3px 3px 0px #000;
       letter-spacing: 2px;
     }
 
@@ -149,9 +136,7 @@
       background: rgba(10, 5, 2, 0.9);
     }
 
-    .player-input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
-    }
+    .player-input::placeholder { color: rgba(255, 255, 255, 0.35); }
 
     .btn-enter {
       width: 100%;
@@ -165,39 +150,25 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 
-        0 6px 0 #6d4c0f,
-        0 10px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 0 #6d4c0f, 0 10px 20px rgba(0,0,0,0.6);
       transition: all 0.2s ease;
       text-transform: uppercase;
     }
 
     .btn-enter:hover {
       transform: translateY(-2px);
-      box-shadow: 
-        0 8px 0 #6d4c0f,
-        0 14px 25px rgba(223, 178, 80, 0.4);
+      box-shadow: 0 8px 0 #6d4c0f, 0 14px 25px rgba(223, 178, 80, 0.4);
       filter: brightness(1.1);
-    }
-
-    .btn-enter:active {
-      transform: translateY(4px);
-      box-shadow: 
-        0 2px 0 #6d4c0f,
-        0 5px 10px rgba(0,0,0,0.6);
     }
 
     .error-msg {
       color: #ef4444;
       font-size: 0.85rem;
       margin-top: 0.8rem;
-      min-height: 1.2rem;
       display: none;
     }
 
-    /* ==========================================================================
-       3. TELA 2: ANIMAÇÃO DE VÓRTEX / SER PUXADO PARA DENTRO
-       ========================================================================== */
+    /* TELA 2: VÓRTEX DE TRANSIÇÃO */
     .vortex-overlay {
       position: fixed;
       top: 0;
@@ -206,9 +177,9 @@
       height: 100vh;
       z-index: 100;
       pointer-events: none;
+      display: none;
       opacity: 0;
-      transition: opacity 1s ease;
-      display: flex;
+      transition: opacity 0.8s ease;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -239,11 +210,7 @@
       to { transform: scale(1.1); opacity: 1; text-shadow: 0 0 30px #fff, 0 0 50px var(--gold-bright); }
     }
 
-    /* Efeito de Tremor na Tela Toda */
-    .shake {
-      animation: cameraShake 0.1s infinite;
-    }
-
+    .shake { animation: cameraShake 0.1s infinite; }
     @keyframes cameraShake {
       0% { transform: translate(2px, 1px) rotate(0deg); }
       20% { transform: translate(-3px, -2px) rotate(-1deg); }
@@ -253,7 +220,6 @@
       100% { transform: translate(-2px, 2px) rotate(-1deg); }
     }
 
-    /* Flash Branco de Transição */
     .flash-overlay {
       position: fixed;
       top: 0;
@@ -262,14 +228,13 @@
       height: 100vh;
       background: #ffffff;
       z-index: 200;
+      display: none;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
     }
 
-    /* ==========================================================================
-       4. TELA 3: TELA FINAL DE CHEGADA A JUMANJI
-       ========================================================================== */
+    /* TELA 3: CHEGADA */
     .jumanji-world {
       position: relative;
       z-index: 20;
@@ -280,30 +245,27 @@
       align-items: center;
       padding: 2rem 1rem;
       opacity: 0;
-      transition: opacity 1.5s ease;
+      transition: opacity 1s ease;
     }
 
     .welcome-header {
       text-align: center;
       margin-bottom: 2.5rem;
     }
-
     .welcome-header h2 {
       font-family: 'Cinzel', serif;
       color: var(--gold);
       letter-spacing: 5px;
       font-size: 1.2rem;
     }
-
     .welcome-header h1 {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       color: var(--gold-bright);
       text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
       margin-top: 0.5rem;
     }
 
-    /* Grid dos Avatares dos 5 Jogadores */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -323,12 +285,6 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.7);
       backdrop-filter: blur(5px);
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .character-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--emerald-glow);
     }
 
     .avatar-icon {
@@ -342,7 +298,6 @@
       justify-content: center;
       font-size: 2.2rem;
       margin-bottom: 1rem;
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
     }
 
     .player-real-name {
@@ -354,7 +309,7 @@
 
     .avatar-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--gold-bright);
       font-weight: 700;
       margin: 0.3rem 0 0.8rem 0;
@@ -369,9 +324,7 @@
       padding-top: 0.8rem;
     }
 
-    .skills-list strong {
-      color: var(--gold);
-    }
+    .skills-list strong { color: var(--gold); }
 
     .btn-restart {
       padding: 0.9rem 2rem;
@@ -389,10 +342,8 @@
     .btn-restart:hover {
       background: var(--gold);
       color: var(--wood-dark);
-      box-shadow: 0 0 20px rgba(223, 178, 80, 0.4);
     }
 
-    /* Respnsividade */
     @media (max-width: 600px) {
       .title-main { font-size: 2rem; }
       .welcome-header h1 { font-size: 2.2rem; }
@@ -402,10 +353,282 @@
 </head>
 <body>
 
-  <!-- Fundo Ambiental -->
   <div class="jungle-bg"></div>
-
-  <!-- Camada de Flash Branco para Transição -->
   <div id="flashOverlay" class="flash-overlay"></div>
 
-  <!-- Visual
+  <div id="vortexOverlay" class="vortex-overlay">
+    <canvas id="vortexCanvas"></canvas>
+    <div class="vortex-warning">SUGIDOS PELO JOGO!</div>
+  </div>
+
+  <!-- TELA 1 -->
+  <main id="setupScreen" class="setup-container">
+    <div class="title-banner">
+      <div class="title-sub">Escape Room</div>
+      <h1 class="title-main">JUMANJI</h1>
+    </div>
+
+    <form id="jumanjiForm" onsubmit="event.preventDefault(); startJumanjiExperience();">
+      <div class="players-form">
+        <div class="input-group"><span class="input-badge">1</span><input type="text" class="player-input" placeholder="Nome do Jogador 1" required spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">2</span><input type="text" class="player-input" placeholder="Nome do Jogador 2" required spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">3</span><input type="text" class="player-input" placeholder="Nome do Jogador 3" required spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">4</span><input type="text" class="player-input" placeholder="Nome do Jogador 4" required spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">5</span><input type="text" class="player-input" placeholder="Nome do Jogador 5" required spellcheck="false"></div>
+      </div>
+      <button type="submit" class="btn-enter">ENTRAR NO JOGO</button>
+      <div id="errorMsg" class="error-msg">Por favor, preencha os 5 nomes.</div>
+    </form>
+  </main>
+
+  <!-- TELA 3 -->
+  <section id="jumanjiScreen" class="jumanji-world">
+    <div class="welcome-header">
+      <h2>CONSEQUÊNCIAS ACEITAS</h2>
+      <h1>BEM-VINDOS A JUMANJI!</h1>
+    </div>
+    <div id="cardsGrid" class="cards-grid"></div>
+    <button class="btn-restart" onclick="resetApp()">JOGAR NOVAMENTE</button>
+  </section>
+
+  <script>
+    const AVATARS = [
+      { role: "Dr. Smolder Bravestone", icon: "⚔️", skills: "Intimidação, Boomerangs, Força Sobre-humana", weakness: "Nenhuma" },
+      { role: "Ruby Roundhouse", icon: "🥋", skills: "Artes Marciais, Dança de Combate, Nunchaku", weakness: "Veneno de Serpente" },
+      { role: "Prof. Shelly Oberon", icon: "🗺️", skills: "Cartografia, Arqueologia, Geometria", weakness: "Resistência Física / Sol" },
+      { role: "Franklin 'Mouse' Finbar", icon: "🎒", skills: "Zoológico, Mochileiro de Armas", weakness: "Bolo / Velocidade" },
+      { role: "Jefferson 'Seaplane' McDonough", icon: "🛩️", skills: "Pilotagem de Aeronaves, Margaritas", weakness: "Picada de Mosquito" }
+    ];
+
+    // AUDIO CONTROL COM TRATAMENTO DE ERRO
+    let audioCtx = null;
+
+    function initAudio() {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {
+        console.warn("Áudio não suportado ou bloqueado:", e);
+      }
+    }
+
+    function playDrumBeat(freq = 60, duration = 0.4) {
+      try {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playVortexSound(durationSeconds = 4.5) {
+      try {
+        if (!audioCtx) return;
+        const bufferSize = audioCtx.sampleRate * durationSeconds;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(100, audioCtx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(3000, audioCtx.currentTime + durationSeconds);
+        filter.Q.value = 4;
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime * 0.7);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + durationSeconds);
+
+        whiteNoise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        whiteNoise.start();
+      } catch (e) {}
+    }
+
+    // CANVAS ANIMAÇÃO
+    let canvas, ctx, particles = [], animationFrameId;
+
+    function setupCanvas() {
+      canvas = document.getElementById('vortexCanvas');
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+      resizeCanvas();
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createVortexParticles() {
+      particles = [];
+      const count = 300;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          angle: Math.random() * Math.PI * 2,
+          radius: Math.random() * Math.max(window.innerWidth, window.innerHeight) * 0.8 + 50,
+          speed: Math.random() * 0.04 + 0.02,
+          size: Math.random() * 3 + 1,
+          color: Math.random() > 0.4 ? '#10b981' : '#ffd700',
+          radialSpeed: Math.random() * 3 + 1.5
+        });
+      }
+    }
+
+    function drawVortex() {
+      if (!ctx) return;
+      ctx.fillStyle = 'rgba(7, 10, 8, 0.25)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      particles.forEach(p => {
+        p.angle += p.speed;
+        p.radius -= p.radialSpeed;
+        if (p.radius <= 5) {
+          p.radius = Math.max(canvas.width, canvas.height) * 0.7;
+        }
+        const x = centerX + Math.cos(p.angle) * p.radius;
+        const y = centerY + Math.sin(p.angle) * p.radius;
+        ctx.beginPath();
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(drawVortex);
+    }
+
+    // TRANSIÇÃO DE TELA
+    function startJumanjiExperience() {
+      const inputs = document.querySelectorAll('.player-input');
+      const names = Array.from(inputs).map(inp => inp.value.trim());
+
+      if (names.some(name => name === "")) {
+        document.getElementById('errorMsg').style.display = 'block';
+        return;
+      }
+
+      initAudio();
+
+      const setupScreen = document.getElementById('setupScreen');
+      setupScreen.style.opacity = '0';
+      setupScreen.style.transform = 'scale(0.8)';
+      
+      setTimeout(() => {
+        setupScreen.style.display = 'none';
+        runVortexSequence(names);
+      }, 500);
+    }
+
+    function runVortexSequence(playerNames) {
+      const vortexOverlay = document.getElementById('vortexOverlay');
+      const flashOverlay = document.getElementById('flashOverlay');
+      const body = document.body;
+
+      vortexOverlay.style.display = 'flex';
+      setTimeout(() => { vortexOverlay.style.opacity = '1'; }, 20);
+
+      setupCanvas();
+      createVortexParticles();
+      drawVortex();
+      playVortexSound(4.5);
+
+      let drumInterval = 450;
+      let count = 0;
+      function triggerDrums() {
+        if (count < 10) {
+          playDrumBeat(80 - count * 4, 0.3);
+          count++;
+          drumInterval = Math.max(70, drumInterval * 0.75);
+          setTimeout(triggerDrums, drumInterval);
+        }
+      }
+      triggerDrums();
+
+      body.classList.add('shake');
+
+      // Flash Branco
+      setTimeout(() => {
+        flashOverlay.style.display = 'block';
+        flashOverlay.style.opacity = '1';
+      }, 3500);
+
+      // Troca para Tela Final
+      setTimeout(() => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        body.classList.remove('shake');
+        
+        vortexOverlay.style.opacity = '0';
+        vortexOverlay.style.display = 'none';
+
+        renderJumanjiScreen(playerNames);
+
+        setTimeout(() => {
+          flashOverlay.style.opacity = '0';
+          setTimeout(() => { flashOverlay.style.display = 'none'; }, 400);
+        }, 300);
+      }, 4000);
+    }
+
+    function renderJumanjiScreen(playerNames) {
+      const jumanjiScreen = document.getElementById('jumanjiScreen');
+      const cardsGrid = document.getElementById('cardsGrid');
+      cardsGrid.innerHTML = '';
+
+      playerNames.forEach((name, index) => {
+        const avatar = AVATARS[index % AVATARS.length];
+        const card = document.createElement('div');
+        card.className = 'character-card';
+        card.innerHTML = `
+          <div class="avatar-icon">${avatar.icon}</div>
+          <div class="player-real-name">${escapeHtml(name)}</div>
+          <div class="avatar-title">${avatar.role}</div>
+          <div class="skills-list">
+            <p><strong>Habilidades:</strong> ${avatar.skills}</p>
+            <p style="margin-top:0.4rem;"><strong>Fraqueza:</strong> ${avatar.weakness}</p>
+          </div>
+        `;
+        cardsGrid.appendChild(card);
+      });
+
+      jumanjiScreen.style.display = 'flex';
+      setTimeout(() => {
+        jumanjiScreen.style.opacity = '1';
+      }, 50);
+    }
+
+    function resetApp() {
+      window.location.reload();
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+</body>
+</html>
