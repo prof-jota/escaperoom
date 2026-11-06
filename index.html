@@ -204,7 +204,7 @@
       animation: pulseText 0.8s infinite alternate;
       padding: 0 1rem;
       opacity: 1;
-      transition: opacity 1s ease; /* Transição suave para desaparecer */
+      transition: opacity 1s ease;
     }
 
     @keyframes pulseText {
@@ -247,14 +247,14 @@
 
     <form id="jumanjiForm" onsubmit="event.preventDefault(); startInfiniteVortex();">
       <div class="players-form">
-        <div class="input-group"><span class="input-badge">1</span><input type="text" class="player-input" placeholder="Nome do Jogador 1" required spellcheck="false"></div>
-        <div class="input-group"><span class="input-badge">2</span><input type="text" class="player-input" placeholder="Nome do Jogador 2" required spellcheck="false"></div>
-        <div class="input-group"><span class="input-badge">3</span><input type="text" class="player-input" placeholder="Nome do Jogador 3" required spellcheck="false"></div>
-        <div class="input-group"><span class="input-badge">4</span><input type="text" class="player-input" placeholder="Nome do Jogador 4" required spellcheck="false"></div>
-        <div class="input-group"><span class="input-badge">5</span><input type="text" class="player-input" placeholder="Nome do Jogador 5" required spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">1</span><input type="text" class="player-input" placeholder="Nome do Jogador 1 (opcional)" spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">2</span><input type="text" class="player-input" placeholder="Nome do Jogador 2 (opcional)" spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">3</span><input type="text" class="player-input" placeholder="Nome do Jogador 3 (opcional)" spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">4</span><input type="text" class="player-input" placeholder="Nome do Jogador 4 (opcional)" spellcheck="false"></div>
+        <div class="input-group"><span class="input-badge">5</span><input type="text" class="player-input" placeholder="Nome do Jogador 5 (opcional)" spellcheck="false"></div>
       </div>
       <button type="submit" class="btn-enter">ENTRAR NO JOGO</button>
-      <div id="errorMsg" class="error-msg">Por favor, preencha os 5 nomes.</div>
+      <div id="errorMsg" class="error-msg">Por favor, preencha pelo menos 1 jogador para continuar.</div>
     </form>
   </main>
 
@@ -393,11 +393,15 @@
     function startInfiniteVortex() {
       const inputs = document.querySelectorAll('.player-input');
       const names = Array.from(inputs).map(inp => inp.value.trim());
+      const activePlayers = names.filter(name => name !== "");
 
-      if (names.some(name => name === "")) {
+      // Exige que pelo menos 1 jogador tenha sido informado
+      if (activePlayers.length === 0) {
         document.getElementById('errorMsg').style.display = 'block';
         return;
       }
+
+      document.getElementById('errorMsg').style.display = 'none';
 
       initAudio();
 
@@ -427,7 +431,7 @@
           warning.style.opacity = '0';
           setTimeout(() => {
             warning.style.display = 'none';
-          }, 1000); // Aguarda o término da transição do CSS
+          }, 1000);
         }, 3500);
 
       }, 500);
